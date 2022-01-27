@@ -1,12 +1,19 @@
 # spring-vault-demo
 
-* [环境搭建](./docs/environment.md)
+- 在application.yml文件中已经将数据库的连接注释掉，
+- 通过config中的DatabaseConfig配置数据源
+- 加载过程
+  - 项目启动时，从vault服务器中获取mysql用户名和密码进行访问数据库
+  - 当在vault更新密码之后，项目启动密码会刷新
+
+
+### 环境搭建 [./docs/environment.md](./docs/environment.md)
 
 ```shell
 docker-compose up -d
 ```
 
-## vault使用
+### vault使用
 
 - 启动项目
   - 编译项目
@@ -17,7 +24,6 @@ docker-compose up -d
   ```shell
   ./gradlew bootRun
   ```
-  - 
 
 - 报错，执行脚本插入正确的用户名密码
 ```shell
@@ -32,12 +38,13 @@ docker-compose up -d
 ```shell
 ./script/vault/put_mysql_credentials_id_false.sh
 ```
+- 也可以通过访问UI界面修改 cubbyhole/mysql中的用户名和密码，启动工程观察结果
 
 
-### UI访问
-访问： http://127.0.0.1:8200/
+#### UI访问
+- 访问： http://127.0.0.1:8200/
 
-### key-value
+#### vault写入key-value
 
 - 写入route
     - 注意： value为写入的路由 
